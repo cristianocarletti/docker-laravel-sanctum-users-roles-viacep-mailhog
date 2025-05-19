@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+    image: laravel
+    container_name: laravel
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mailhog
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
