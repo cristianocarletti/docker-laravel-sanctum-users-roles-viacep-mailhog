@@ -34,14 +34,28 @@ docker exec -it laravel bash
 composer install
 php artisan key:generate
 php artisan migrate --seed
+php artisan serve --host=0.0.0.0 --port=8000
 ```
-### 6. Após acessar o bash
-```bash
-docker exec -it laravel bash
----
+fora do bash:
+docker-compose exec app composer install
+docker-compose exec app php artisan key:generate
+docker-compose exec app php artisan migrate:refresh --seed
+docker-compose exec app php artisan serve --host=0.0.0.0 --port=8000
 
 ## 💻 Acessos rápidos
 - **Frontend (login etc)**: http://localhost:8000
+
+logins:
+'name' => 'Admin',
+'email' => 'admin@email.com',
+'password' => bcrypt('123456'),
+'role' => 'admin',
+
+'name' => 'João da Silva',
+'email' => 'joao@email.com',
+'password' => bcrypt('123456'),
+'role' => 'user',
+
 - **MailHog (emails simulados)**: http://localhost:8025
 
 ---
