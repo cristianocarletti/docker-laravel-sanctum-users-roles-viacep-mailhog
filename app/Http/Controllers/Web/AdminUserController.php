@@ -23,7 +23,11 @@ class AdminUserController extends Controller
 
         $users = $query->paginate(10);
 
-        return view('dashboard', compact('users'));
+        // Métricas básicas
+        $totalUsers = User::count();
+        $usersByCity = User::select('city')->groupBy('city')->selectRaw('count(*) as total, city')->get();
+
+        return view('dashboard', compact('users', 'totalUsers', 'usersByCity'));
     }
 
     public function edit($id)
@@ -50,7 +54,7 @@ class AdminUserController extends Controller
         $dados = $request->all();
         $dados['password'] = bcrypt($dados['password']);
 
-        \App\Models\User::create($dados);
+        User::create($dados);
 
         return redirect('/admin/users')->with('success', 'Usuário criado com sucesso.');
     }
